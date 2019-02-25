@@ -1,0 +1,11 @@
+.ButtonLayout {
+    margin-top: 10px;
+}
+
+.ButtonLayout button {
+    margin-right: 10px;
+    width: 80px;
+    padding: 3px;
+    color: white;
+    background-color: gray;
+}

@@ -1,0 +1,24 @@
+.ListItem {
+    padding: 3px;
+    background-color:white;
+    color: rgb(36, 35, 35);
+    font-size: 15px;
+    border: 1px solid rgb(39, 39, 39);
+    margin: 2px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.ListItem:hover {
+    background-color: rgb(150, 143, 214);
+    color: black;
+}
+/*
+.ListItem p {
+    display: block;
+    padding: 2px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}*/

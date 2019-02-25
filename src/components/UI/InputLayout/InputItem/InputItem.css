@@ -1,0 +1,31 @@
+.InputItem {
+    margin: 10px 5px;
+}
+
+.InputItem label {
+    width: 20%;
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.InputItem input 
+{
+    width: 70%;
+    padding: 5px;
+    font-size: 14px;
+    color: rgb(43, 42, 42);
+    border: 1px solid #888888;
+}
+
+
+.InputItem textarea 
+{
+    width: 70%;
+    border-radius: 5px;
+    padding: 5px;
+    line-height: 20px;
+    font-size: 14px;
+    color: rgb(43, 42, 42);
+    border: 1px solid #888888;
+}

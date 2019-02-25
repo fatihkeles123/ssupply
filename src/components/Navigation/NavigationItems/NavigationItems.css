@@ -1,0 +1,24 @@
+.Navigation{
+    border-top: 1px solid rgb(29, 28, 28);
+    border-bottom: 1px solid rgb(29, 28, 28);
+}
+
+.NavigationItems {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+    background-color: white;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+    
+}
+
+.NavigationItems a {
+    text-decoration: none;
+    color: rgb(29, 28, 28);
+}
