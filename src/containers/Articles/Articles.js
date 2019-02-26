@@ -16,30 +16,34 @@ class Articles extends Component {
         category: '',
         mode: '',
         index: '',
+        search: '',
         modal: false,
         detailPage: false, //If it is true, component will produce an article detail page//
         articleId: '', //we use it for aticle detail page to define which article info will be brought
     }
 
     componentDidMount(){
-        const categoryId = this.props.history.location.state.categoryId;
-        if(this.props.history.location.state.mode==='add'){
-            this.setState({mode:'add', modal: true});
-        }
+        this.props.onCategoryListUpdated();
         if(this.props.history.location.state.detailPage){
             this.setState({detailPage:true, articleId: this.props.history.location.state.articleId});
         }
-        if(categoryId){
-            this.props.onArticleListUpdated(categoryId);
+        if(this.props.history.location.state.mode==='add'){
+            this.setState({mode:'add', modal: true});
+        }
+        if(this.props.history.location.state.categoryId){
+            this.props.onArticleListUpdated(this.props.history.location.state.categoryId);
         }
         else{
             this.props.onListUpdated();
         }
-        this.props.onCategoryListUpdated();
     };
-    
+
     titleChangeHandler = (event) => {
         this.setState({title: event.target.value});
+    };
+
+    searchTextChangeHandler = (event) => {
+        this.setState({search: event.target.value});
     };
 
     contentChangeHandler = (event) => {
@@ -75,11 +79,29 @@ class Articles extends Component {
     };
 
     cancelHandler = () => {
-        this.setState({title: '', content: '', category: '', mode: 'add', index: '', modal: false});
+        this.setState({title: '', content: '', category: '', search: '', mode: 'add', index: '', modal: false});
     };
 
     render() {
-        const articleKeys = this.props.articleList ? Object.keys(this.props.articleList) : [];
+        const articleEntries = this.props.articleList ? Object.entries(this.props.articleList) : [];
+        const searchTerm =  this.state.search;
+        let searchResults = [];
+        let articleKeys = [];
+        if(searchTerm){
+            articleEntries.map((item)=>{
+                if(item[1].content.indexOf(searchTerm)>0){
+                    searchResults.push(item[0]);
+                }
+                return 1;
+            });
+            articleKeys = searchResults ? searchResults : [];
+            articleKeys.sort();//ascending date time order
+            articleKeys.reverse();//descending date time order
+        }else{
+            articleKeys = this.props.articleList ? Object.keys(this.props.articleList) : [];
+            articleKeys.sort();//ascending date time order
+            articleKeys.reverse();//descending date time order
+        }
         const articleObject = this.props.articleList ? this.props.articleList : [];
         const categoryKeys = this.props.categoryList ? Object.keys(this.props.categoryList) : [];
         const categoryObject = this.props.categoryList ? this.props.categoryList : [];
@@ -121,6 +143,7 @@ class Articles extends Component {
                     }
                 });
             }else {
+                console.log(articleKeys);
                 articleList = articleKeys.map((item) => {
                     let aList = articleObject[item];
                     let content = '';
@@ -145,6 +168,7 @@ class Articles extends Component {
         
         return (
                 <div>
+                    <InputItem  labelText="Search : " pcText="Search" value={this.state.search} changed={this.searchTextChangeHandler} />
                     <div className={this.state.modal? classes.Modal : classes.ModalNone}>
                         <InputLayout baslik="Add New Article">
                         <InputItem labelText="Title : " pcText="Title" value={title} changed={this.titleChangeHandler} />
