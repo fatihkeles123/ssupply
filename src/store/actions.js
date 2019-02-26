@@ -69,7 +69,7 @@ export const articleListUpdate = (index, title, content, category, moduleName) =
             category: category
         })
         .then(() => {
-            dispatch(getArticleList(moduleName));
+            dispatch(getArticleList());
         });
     }
 }
@@ -149,10 +149,13 @@ export const getList = (moduleName) => {
 
 export const articleListAdd = (title, content, category, moduleName) => {
     return (dispatch) => {
+        const utc = new Date().toString().slice(0,24);
+        console.log(utc);
         return axios.post(`https://suitsupply-abe82.firebaseio.com/articles.json`,{
             title: title,
             content: content,
-            category: category
+            category: category,
+            date: utc
         })
         .then(() => {
             dispatch(getArticleList(moduleName));
