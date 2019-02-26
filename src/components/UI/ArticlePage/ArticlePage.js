@@ -7,6 +7,7 @@ const articlePage = (props) => {
     const detailLink = props.idKey ? <NavigationItem link="/article-detail" detailPage="true" articleId={props.idKey} cls='detail'>detail</NavigationItem> : '';
     return <div className={classes.ArticleBox}>
             <h1>{props.title}</h1>
+            <p className={classes.date}>{props.date}</p>
             <p>
                 {props.content}
                 {detailLink}

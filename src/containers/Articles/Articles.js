@@ -137,6 +137,7 @@ class Articles extends Component {
                         return <ArticlePage 
                             clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content, aList.category)} 
                             title={aList.title} 
+                            date={aList.date}
                             content={aList.content} 
                             idKey=''
                         />
@@ -158,7 +159,8 @@ class Articles extends Component {
                     return <ArticlePage 
                         clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content, aList.category)} 
                         title={aList.title} 
-                        content={content} 
+                        content={content}
+                        date={aList.date}
                         key={item}
                         idKey={idKey}
                     />
