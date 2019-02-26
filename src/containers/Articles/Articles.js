@@ -116,7 +116,6 @@ class Articles extends Component {
         const title = this.state.title;
         const content = this.state.content;
         const category = this.state.category;
-        const date = this.state.date;
         const index = this.state.index;
         const mode = this.state.mode;
         let buttons = '';
@@ -151,6 +150,7 @@ class Articles extends Component {
                             idKey={item}
                         />
                     }
+                    return true;
                 });
             }else {
                 articleList = articleKeys.map((item) => {

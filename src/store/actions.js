@@ -16,6 +16,24 @@ export const articleClick = (index) => {
         return axios.delete(query)
         .then(() => {
             dispatch(getArticleList());
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -34,6 +52,24 @@ export const listDelete = (index, moduleName) => {
         return axios.delete(query)
         .then(() => {
             dispatch(getList(moduleName));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -44,6 +80,24 @@ export const articleDelete = (index) => {
         return axios.delete(query)
         .then(() => {
             dispatch(getArticleList());
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -56,6 +110,24 @@ export const listUpdate = (index, name, moduleName) => {
         })
         .then(() => {
             dispatch(getList(moduleName));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -71,6 +143,24 @@ export const articleListUpdate = (index, title, content, date, category, moduleN
         })
         .then(() => {
             dispatch(getArticleList());
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -84,6 +174,24 @@ export const categoryListUpdate = (index, name, order, moduleName) => {
         })
         .then(() => {
             dispatch(getCategoryList(moduleName));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -116,6 +224,24 @@ export const getArticleList = () => {
         return axios.get('https://suitsupply-abe82.firebaseio.com/articles.json')
         .then(res => {
             dispatch(updatedArticleList(res.data));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -125,6 +251,24 @@ export const getArticleListByCategory = (categoryId) => {
         return axios.get('https://suitsupply-abe82.firebaseio.com/articles.json?orderBy="category"&equalTo="'+categoryId+'"')
         .then(res => {
             dispatch(updatedArticleList(res.data));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -134,6 +278,24 @@ export const getCategoryList = () => {
         return axios.get(`https://suitsupply-abe82.firebaseio.com/categories.json`)
         .then(res => {
             dispatch(updatedCategoryList(res.data));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -143,6 +305,24 @@ export const getList = (moduleName) => {
         return axios.get(`https://suitsupply-abe82.firebaseio.com/${moduleName}.json`)
         .then(res => {
             dispatch(updatedList(moduleName,res.data));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
@@ -160,6 +340,24 @@ export const articleListAdd = (title, content, category, moduleName) => {
         })
         .then(() => {
             dispatch(getArticleList(moduleName));
+        })
+        .catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                 console.log(error.response.data);
+                 console.log(error.response.status);
+                 console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
         });
     }
 }
