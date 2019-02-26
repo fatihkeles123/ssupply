@@ -89,7 +89,7 @@ class Articles extends Component {
         let articleKeys = [];
         if(searchTerm){
             articleEntries.map((item)=>{
-                if(item[1].content.indexOf(searchTerm)>0){
+                if((item[1].content.toLowerCase().indexOf(searchTerm.toLowerCase())>=0) || (item[1].title.toLowerCase().indexOf(searchTerm.toLowerCase())>=0)){
                     searchResults.push(item[0]);
                 }
                 return 1;
