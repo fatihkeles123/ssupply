@@ -22,10 +22,17 @@
 .InputItem textarea 
 {
     width: 70%;
+    height: 200px;
     border-radius: 5px;
     padding: 5px;
     line-height: 20px;
     font-size: 14px;
     color: rgb(43, 42, 42);
     border: 1px solid #888888;
+}
+
+.searchBox{
+    width: 300px;
+    margin: 15px auto;
+    display: block;
 }

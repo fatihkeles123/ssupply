@@ -12,3 +12,15 @@
 .ModalNone {
     display: none;
 }
+
+.categoryLabel{
+    margin-left: 5px;
+    width: 20%;
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.categorySelect{
+    width: 70%;
+}

@@ -14,6 +14,7 @@ class Articles extends Component {
         title: '',
         content: '',
         category: '',
+        date: '',
         mode: '',
         index: '',
         search: '',
@@ -24,18 +25,24 @@ class Articles extends Component {
 
     componentDidMount(){
         this.props.onCategoryListUpdated();
-        if(this.props.history.location.state.detailPage){
-            this.setState({detailPage:true, articleId: this.props.history.location.state.articleId});
-        }
-        if(this.props.history.location.state.mode==='add'){
-            this.setState({mode:'add', modal: true});
-        }
-        if(this.props.history.location.state.categoryId){
-            this.props.onArticleListUpdated(this.props.history.location.state.categoryId);
-        }
-        else{
+        if(this.props.history.location.state===undefined){
             this.props.onListUpdated();
+        }else{
+            if(this.props.history.location.state.detailPage){
+                this.setState({detailPage:true, articleId: this.props.history.location.state.articleId});
+            }
+            if(this.props.history.location.state.mode==='add'){
+                this.setState({mode:'add', modal: true});
+            }
+            if(this.props.history.location.state.categoryId){
+                this.props.onArticleListUpdated(this.props.history.location.state.categoryId);
+            }
+            else{
+                this.props.onListUpdated();
+            }
         }
+        
+        
     };
 
     titleChangeHandler = (event) => {
@@ -54,8 +61,8 @@ class Articles extends Component {
         this.setState({category: event.target.value});
     };
 
-    modeChangeHandler = (index, mode, title, content, category) => {
-        this.setState({mode: mode, index: index, title: title, content: content, category: category, modal: true});
+    modeChangeHandler = (index, mode, title, content, date, category) => {
+        this.setState({mode: mode, index: index, title: title, content: content, date: date, category: category, modal: true});
     };
 
     addClickHandler = (index = '') => {
@@ -63,14 +70,15 @@ class Articles extends Component {
         const content = this.state.content;
         const category = this.state.category;
         const mode = this.state.mode;
+        const date = this.state.date;
         if (mode === 'add'){
             this.props.onAdded(title, content, category);
         }
         if ((mode === 'update') && (index !== '')){
-            this.props.onUpdated(index, title, content, category);
+            this.props.onUpdated(index, title, content, date, category);
             this.cancelHandler();
         }
-        this.setState({title: '', content: '', category: ''});
+        this.setState({title: '', content: '', date: '', category: ''});
     };
 
     deleteHandler = (index) => {
@@ -79,7 +87,7 @@ class Articles extends Component {
     };
 
     cancelHandler = () => {
-        this.setState({title: '', content: '', category: '', search: '', mode: 'add', index: '', modal: false});
+        this.setState({title: '', content: '', date: '', category: '', search: '', mode: 'add', index: '', modal: false});
     };
 
     render() {
@@ -108,6 +116,7 @@ class Articles extends Component {
         const title = this.state.title;
         const content = this.state.content;
         const category = this.state.category;
+        const date = this.state.date;
         const index = this.state.index;
         const mode = this.state.mode;
         let buttons = '';
@@ -135,32 +144,34 @@ class Articles extends Component {
                     if(item === this.state.articleId){
                         let aList = articleObject[item];
                         return <ArticlePage 
-                            clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content, aList.category)} 
+                            clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content,  aList.date, aList.category)} 
                             title={aList.title} 
                             date={aList.date}
                             content={aList.content} 
-                            idKey=''
+                            idKey={item}
                         />
                     }
                 });
             }else {
-                console.log(articleKeys);
                 articleList = articleKeys.map((item) => {
                     let aList = articleObject[item];
                     let content = '';
-                    let idKey = null;
+                    let detail = false;
+                    let idKey = item;
                     if (aList.content.length > 800){
                         content = aList.content.slice(0, 800);
-                        idKey=item;
+                        detail = true;
                     }
                     else{
                         content = aList.content;
                     }
                     return <ArticlePage 
-                        clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content, aList.category)} 
+                        clicked={() => this.modeChangeHandler(item,'update', aList.title, aList.content, aList.date, aList.category)} 
+                        deleted={() => this.deleteHandler(idKey)} 
                         title={aList.title} 
                         content={content}
                         date={aList.date}
+                        detail={detail}
                         key={item}
                         idKey={idKey}
                     />
@@ -170,13 +181,13 @@ class Articles extends Component {
         
         return (
                 <div>
-                    <InputItem  labelText="Search : " pcText="Search" value={this.state.search} changed={this.searchTextChangeHandler} />
+                    <InputItem cls="searchBox" labelText="" pcText="Search" value={this.state.search} changed={this.searchTextChangeHandler} />
                     <div className={this.state.modal? classes.Modal : classes.ModalNone}>
                         <InputLayout baslik="Add New Article">
                         <InputItem labelText="Title : " pcText="Title" value={title} changed={this.titleChangeHandler} />
                         <InputItem labelText="Content : " pcText="Content" value={content} changed={this.contentChangeHandler} inputType="text" />
-                        <label>Category : </label>
-                        <select value={category} onChange={this.categoryChangeHandler.bind(this)}>
+                        <label className={classes.categoryLabel}>Category : </label>
+                        <select className={classes.categorySelect} value={category} onChange={this.categoryChangeHandler.bind(this)}>
                         <option key="1" value="">Category Name</option>
                         {categoryKeys.map((cKey) => <option key={cKey} value={cKey}>{categoryObject[cKey].name}</option>)}
                         </select>
@@ -208,7 +219,7 @@ const mapsDispatchToProps = dispatch => {
         onListUpdated: () => dispatch(actionCreators.getArticleList(moduleName)),
         onCategoryListUpdated: () => dispatch(actionCreators.getCategoryList()),
         onDeleted: (index) => dispatch(actionCreators.articleDelete(index)),
-        onUpdated: (index, title, content, category) => dispatch(actionCreators.articleListUpdate(index, title, content, category, moduleName))
+        onUpdated: (index, title, content, date, category) => dispatch(actionCreators.articleListUpdate(index, title, content, date, category, moduleName))
     }
 }
 export default connect(mapsStateToProps,mapsDispatchToProps)(Articles);

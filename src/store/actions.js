@@ -60,12 +60,13 @@ export const listUpdate = (index, name, moduleName) => {
     }
 }
 
-export const articleListUpdate = (index, title, content, category, moduleName) => {
+export const articleListUpdate = (index, title, content, date, category, moduleName) => {
     return (dispatch) => {
         const query = `https://suitsupply-abe82.firebaseio.com/${moduleName}/${index}.json`;
         return axios.put(query,{
             title: title,
             content: content,
+            date: date,
             category: category
         })
         .then(() => {
